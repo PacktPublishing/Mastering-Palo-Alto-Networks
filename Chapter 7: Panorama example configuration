@@ -1,0 +1,1127 @@
+<?xml version="1.0"?>
+<config version="9.0.0" urldb="paloaltonetworks">
+  <mgt-config>
+    <devices>
+      <entry name="1111111"/>
+      <entry name="2222222"/>
+      <entry name="3333333"/>
+      <entry name="4444444"/>
+      <entry name="5555555"/>
+    </devices>
+    <users>
+      <entry name="admin">
+        <phash>fnRL/G5lXVMug</phash>
+        <permissions>
+          <role-based>
+            <superuser>yes</superuser>
+          </role-based>
+        </permissions>
+      </entry>
+    </users>
+  </mgt-config>
+  <shared>
+    <address>
+      <entry name="HQ-TerminalServers">
+        <ip-netmask>203.0.113.0/24</ip-netmask>
+        <disable-override>no</disable-override>
+      </entry>
+      <entry name="HQ-admins">
+        <ip-netmask>10.0.0.0/24</ip-netmask>
+      </entry>
+      <entry name="PRTG">
+        <ip-netmask>10.0.0.25</ip-netmask>
+      </entry>
+      <entry name="sinkhole.paloaltonetworks.com">
+        <fqdn>sinkhole.paloaltonetworks.com</fqdn>
+      </entry>
+    </address>
+    <profile-group>
+      <entry name="default">
+        <virus>
+          <member>AVforall</member>
+        </virus>
+        <spyware>
+          <member>AS</member>
+        </spyware>
+        <vulnerability>
+          <member>strict</member>
+        </vulnerability>
+        <url-filtering>
+          <member>default</member>
+        </url-filtering>
+        <wildfire-analysis>
+          <member>default</member>
+        </wildfire-analysis>
+      </entry>
+    </profile-group>
+    <pre-rulebase>
+      <security>
+        <rules>
+          <entry name="block sinkhole" uuid="dacdfd6c-ed49-4384-b8c1-29aadb044201">
+            <profile-setting>
+              <group>
+                <member>default</member>
+              </group>
+            </profile-setting>
+            <target>
+              <negate>no</negate>
+            </target>
+            <to>
+              <member>ISP</member>
+            </to>
+            <from>
+              <member>any</member>
+            </from>
+            <source>
+              <member>any</member>
+            </source>
+            <destination>
+              <member>sinkhole.paloaltonetworks.com</member>
+            </destination>
+            <source-user>
+              <member>any</member>
+            </source-user>
+            <category>
+              <member>any</member>
+            </category>
+            <application>
+              <member>any</member>
+            </application>
+            <service>
+              <member>application-default</member>
+            </service>
+            <hip-profiles>
+              <member>any</member>
+            </hip-profiles>
+            <action>drop</action>
+            <log-setting>default</log-setting>
+          </entry>
+          <entry name="shared pre - admin access" uuid="dde1aa9e-e46f-42bc-bc40-ba82d83b9a34">
+            <profile-setting>
+              <group>
+                <member>default</member>
+              </group>
+            </profile-setting>
+            <target>
+              <negate>no</negate>
+            </target>
+            <to>
+              <member>LAN</member>
+            </to>
+            <from>
+              <member>HQVPN</member>
+            </from>
+            <source>
+              <member>HQ-admins</member>
+            </source>
+            <destination>
+              <member>any</member>
+            </destination>
+            <source-user>
+              <member>any</member>
+            </source-user>
+            <category>
+              <member>any</member>
+            </category>
+            <application>
+              <member>ssh</member>
+            </application>
+            <service>
+              <member>application-default</member>
+            </service>
+            <hip-profiles>
+              <member>any</member>
+            </hip-profiles>
+            <action>allow</action>
+            <tag>
+              <member>SHARED</member>
+            </tag>
+          </entry>
+        </rules>
+      </security>
+    </pre-rulebase>
+    <tag>
+      <entry name="SHARED"/>
+    </tag>
+    <content-preview>
+      <application/>
+      <application-type>
+        <category/>
+        <technology/>
+      </application-type>
+    </content-preview>
+    <log-settings>
+      <profiles>
+        <entry name="default">
+          <match-list>
+            <entry name="traffic log">
+              <log-type>traffic</log-type>
+              <filter>All Logs</filter>
+              <send-to-panorama>yes</send-to-panorama>
+            </entry>
+            <entry name="threat log">
+              <log-type>threat</log-type>
+              <filter>All Logs</filter>
+              <send-to-panorama>yes</send-to-panorama>
+            </entry>
+            <entry name="url log">
+              <log-type>url</log-type>
+              <filter>All Logs</filter>
+              <send-to-panorama>yes</send-to-panorama>
+            </entry>
+          </match-list>
+        </entry>
+      </profiles>
+    </log-settings>
+    <profiles>
+      <virus>
+        <entry name="AVforall">
+          <decoder>
+            <entry name="ftp">
+              <action>default</action>
+              <wildfire-action>default</wildfire-action>
+            </entry>
+            <entry name="http">
+              <action>default</action>
+              <wildfire-action>default</wildfire-action>
+            </entry>
+            <entry name="http2">
+              <action>default</action>
+              <wildfire-action>default</wildfire-action>
+            </entry>
+            <entry name="imap">
+              <action>default</action>
+              <wildfire-action>default</wildfire-action>
+            </entry>
+            <entry name="pop3">
+              <action>default</action>
+              <wildfire-action>default</wildfire-action>
+            </entry>
+            <entry name="smb">
+              <action>default</action>
+              <wildfire-action>default</wildfire-action>
+            </entry>
+            <entry name="smtp">
+              <action>default</action>
+              <wildfire-action>default</wildfire-action>
+            </entry>
+          </decoder>
+        </entry>
+      </virus>
+      <spyware>
+        <entry name="AS">
+          <botnet-domains>
+            <lists>
+              <entry name="default-paloalto-dns">
+                <packet-capture>disable</packet-capture>
+                <action>
+                  <sinkhole/>
+                </action>
+              </entry>
+              <entry name="default-paloalto-cloud">
+                <packet-capture>disable</packet-capture>
+                <action>
+                  <sinkhole/>
+                </action>
+              </entry>
+            </lists>
+            <sinkhole>
+              <ipv4-address>pan-sinkhole-default-ip</ipv4-address>
+              <ipv6-address>::1</ipv6-address>
+            </sinkhole>
+          </botnet-domains>
+          <rules>
+            <entry name="hi-med">
+              <action>
+                <reset-both/>
+              </action>
+              <severity>
+                <member>critical</member>
+                <member>high</member>
+                <member>medium</member>
+              </severity>
+              <threat-name>any</threat-name>
+              <category>any</category>
+              <packet-capture>extended-capture</packet-capture>
+            </entry>
+            <entry name="lo-inf">
+              <action>
+                <default/>
+              </action>
+              <severity>
+                <member>low</member>
+                <member>informational</member>
+              </severity>
+              <threat-name>any</threat-name>
+              <category>any</category>
+              <packet-capture>disable</packet-capture>
+            </entry>
+          </rules>
+        </entry>
+      </spyware>
+    </profiles>
+  </shared>
+  <devices>
+    <entry name="localhost.localdomain">
+      <deviceconfig>
+        <system>
+          <ip-address>10.0.0150</ip-address>
+          <netmask>255.255.255.0</netmask>
+          <update-server>updates.paloaltonetworks.com</update-server>
+          <update-schedule>
+            <threats>
+              <recurring>
+                <every-30-mins>
+                  <at>7</at>
+                  <action>download-and-install</action>
+                </every-30-mins>
+              </recurring>
+            </threats>
+            <anti-virus>
+              <recurring>
+                <hourly>
+                  <at>4</at>
+                  <action>download-and-install</action>
+                </hourly>
+              </recurring>
+            </anti-virus>
+            <wildfire>
+              <recurring>
+                <every-15-mins>
+                  <at>11</at>
+                  <action>download-and-install</action>
+                </every-15-mins>
+              </recurring>
+            </wildfire>
+          </update-schedule>
+          <timezone>US/Pacific</timezone>
+          <service>
+            <disable-telnet>yes</disable-telnet>
+            <disable-http>yes</disable-http>
+            <disable-userid-service>no</disable-userid-service>
+          </service>
+          <hostname>Panorama</hostname>
+          <default-gateway>10.0.0254</default-gateway>
+          <dns-setting>
+            <servers>
+              <primary>1.1.1.1</primary>
+              <secondary>1.0.0.1</secondary>
+            </servers>
+          </dns-setting>
+          <ntp-servers>
+            <primary-ntp-server>
+              <ntp-server-address>time.nist.gov</ntp-server-address>
+              <authentication-type>
+                <none/>
+              </authentication-type>
+            </primary-ntp-server>
+            <secondary-ntp-server>
+              <ntp-server-address>time.belnet.be</ntp-server-address>
+              <authentication-type>
+                <none/>
+              </authentication-type>
+            </secondary-ntp-server>
+          </ntp-servers>
+          <dlsrvr>
+            <interface>mgmt</interface>
+          </dlsrvr>
+          <deployment-update-schedule>
+            <entry name="apps-threats">
+              <app-and-threat>
+                <recurring>
+                  <threshold>6</threshold>
+                  <every-30-mins>
+                    <at>24</at>
+                    <action>
+                      <download-only/>
+                    </action>
+                  </every-30-mins>
+                </recurring>
+              </app-and-threat>
+            </entry>
+            <entry name="apps-only">
+              <app>
+                <recurring>
+                  <threshold>6</threshold>
+                  <daily>
+                    <action>
+                      <download-only/>
+                    </action>
+                    <disable-new-content>no</disable-new-content>
+                    <at>22:00</at>
+                  </daily>
+                </recurring>
+              </app>
+              <disabled>yes</disabled>
+            </entry>
+            <entry name="AntiVirus">
+              <anti-virus>
+                <recurring>
+                  <hourly>
+                    <action>
+                      <download-only/>
+                    </action>
+                    <at>12</at>
+                  </hourly>
+                  <threshold>3</threshold>
+                </recurring>
+              </anti-virus>
+            </entry>
+            <entry name="WildFire">
+              <wildfire>
+                <recurring>
+                  <every-min>
+                    <action>
+                      <download-only/>
+                    </action>
+                  </every-min>
+                </recurring>
+              </wildfire>
+            </entry>
+          </deployment-update-schedule>
+          <config-bundle-export-schedule>
+            <entry name="configbackup">
+              <protocol>
+                <scp>
+                  <hostname>10.0.0.21</hostname>
+                  <port>22</port>
+                  <path>/backup</path>
+                  <username>backupadmin</username>
+                  <password>-AQ==fEqNCco3Yq9h5ZUglD3CZJT4lBs=TPKw8W+5h+VtffslpLSTkQ==</password>
+                </scp>
+              </protocol>
+              <start-time>22:30</start-time>
+              <enable>yes</enable>
+            </entry>
+          </config-bundle-export-schedule>
+          <public-ip-address>198.51.100.150</public-ip-address>
+        </system>
+        <setting>
+          <management>
+            <storage-partition>
+              <internal/>
+            </storage-partition>
+            <hostname-type-in-syslog>FQDN</hostname-type-in-syslog>
+          </management>
+        </setting>
+      </deviceconfig>
+      <log-collector>
+        <entry name="ExampleSerial">
+          <deviceconfig>
+            <system>
+              <service>
+                <disable-device-log-collection>no</disable-device-log-collection>
+                <disable-collector-group-communication>no</disable-collector-group-communication>
+                <disable-ssh>no</disable-ssh>
+                <disable-icmp>no</disable-icmp>
+                <disable-snmp>yes</disable-snmp>
+                <disable-userid-service>yes</disable-userid-service>
+              </service>
+              <speed-duplex>auto-negotiate</speed-duplex>
+              <mtu>1500</mtu>
+            </system>
+          </deviceconfig>
+          <authentication-setting>
+            <users>
+              <entry name="admin"/>
+            </users>
+          </authentication-setting>
+          <secure-conn-client>
+            <certificate-type>
+              <none/>
+            </certificate-type>
+          </secure-conn-client>
+          <disk-settings>
+            <disk-pair>
+              <entry name="A"/>
+            </disk-pair>
+          </disk-settings>
+        </entry>
+      </log-collector>
+      <device-group>
+        <entry name="HQ firewalls">
+          <devices>
+            <entry name="4444444"/>
+            <entry name="5555555"/>
+          </devices>
+        </entry>
+        <entry name="Field firewalls">
+          <devices/>
+          <description>All remote offices</description>
+          <pre-rulebase>
+            <security>
+              <rules>
+                <entry name="field pre- monitoring" uuid="a6667d8a-138a-4772-b0fe-835235805725">
+                  <profile-setting>
+                    <group>
+                      <member>default</member>
+                    </group>
+                  </profile-setting>
+                  <target>
+                    <negate>no</negate>
+                  </target>
+                  <to>
+                    <member>LAN</member>
+                  </to>
+                  <from>
+                    <member>WAN</member>
+                  </from>
+                  <source>
+                    <member>PRTG</member>
+                  </source>
+                  <destination>
+                    <member>any</member>
+                  </destination>
+                  <source-user>
+                    <member>any</member>
+                  </source-user>
+                  <category>
+                    <member>any</member>
+                  </category>
+                  <application>
+                    <member>ping</member>
+                    <member>snmp</member>
+                  </application>
+                  <service>
+                    <member>application-default</member>
+                  </service>
+                  <hip-profiles>
+                    <member>any</member>
+                  </hip-profiles>
+                  <action>allow</action>
+                  <tag>
+                    <member>FIELD</member>
+                  </tag>
+                </entry>
+              </rules>
+            </security>
+          </pre-rulebase>
+          <tag>
+            <entry name="FIELD"/>
+          </tag>
+        </entry>
+        <entry name="EMEA">
+          <devices>
+            <entry name="2222222"/>
+          </devices>
+          <description>EMEA remote offices</description>
+          <address>
+            <entry name="CloudNet">
+              <ip-netmask>198.51.100.0/24</ip-netmask>
+            </entry>
+          </address>
+          <pre-rulebase>
+            <security>
+              <rules>
+                <entry name="EMEA pre - regional cloud apps" uuid="ed04da9b-7757-443e-bec0-fbeb2de96d85">
+                  <profile-setting>
+                    <group>
+                      <member>default</member>
+                    </group>
+                  </profile-setting>
+                  <target>
+                    <negate>no</negate>
+                  </target>
+                  <to>
+                    <member>Untrust</member>
+                  </to>
+                  <from>
+                    <member>LAN</member>
+                  </from>
+                  <source>
+                    <member>any</member>
+                  </source>
+                  <destination>
+                    <member>CloudNet</member>
+                  </destination>
+                  <source-user>
+                    <member>any</member>
+                  </source-user>
+                  <category>
+                    <member>any</member>
+                  </category>
+                  <application>
+                    <member>ssl</member>
+                  </application>
+                  <service>
+                    <member>application-default</member>
+                  </service>
+                  <hip-profiles>
+                    <member>any</member>
+                  </hip-profiles>
+                  <action>allow</action>
+                  <tag>
+                    <member>EMEA</member>
+                  </tag>
+                </entry>
+              </rules>
+            </security>
+          </pre-rulebase>
+          <tag>
+            <entry name="EMEA"/>
+          </tag>
+        </entry>
+        <entry name="NAM">
+          <devices>
+            <entry name="3333333"/>
+          </devices>
+          <description>North America remote offices</description>
+        </entry>
+        <entry name="APAC">
+          <devices>
+            <entry name="1111111"/>
+          </devices>
+          <description>Asia Pacific Remote offices</description>
+        </entry>
+      </device-group>
+      <template-stack>
+        <entry name="EMEAStack">
+          <description>one stack to rule them all</description>
+          <devices>
+            <entry name="2222222"/>
+          </devices>
+          <settings/>
+          <templates>
+            <member>AdminTemplate</member>
+            <member>Management Template</member>
+            <member>Network Template</member>
+          </templates>
+          <config>
+            <devices>
+              <entry name="localhost.localdomain">
+                <network>
+                  <ike>
+                    <gateway>
+                      <entry name="VPNtoHQ">
+                        <authentication>
+                          <pre-shared-key>
+                            <key>-AQ==AbMHrLpPVPVar8M7sGu79sqAPpo=5Xsy3kFncZ/gYMLGP1hwUg==</key>
+                          </pre-shared-key>
+                        </authentication>
+                        <protocol>
+                          <ikev1>
+                            <dpd>
+                              <enable>yes</enable>
+                            </dpd>
+                          </ikev1>
+                          <ikev2>
+                            <dpd>
+                              <enable>yes</enable>
+                            </dpd>
+                          </ikev2>
+                        </protocol>
+                        <local-address>
+                          <ip>$test</ip>
+                          <interface>ethernet1/1</interface>
+                        </local-address>
+                        <protocol-common>
+                          <nat-traversal>
+                            <enable>no</enable>
+                          </nat-traversal>
+                        </protocol-common>
+                        <peer-address>
+                          <ip>$test</ip>
+                        </peer-address>
+                      </entry>
+                    </gateway>
+                  </ike>
+                </network>
+              </entry>
+            </devices>
+          </config>
+        </entry>
+        <entry name="APACStack">
+          <devices>
+            <entry name="1111111"/>
+          </devices>
+          <settings/>
+          <templates>
+            <member>AdminTemplate</member>
+            <member>Management Template</member>
+            <member>Network Template</member>
+          </templates>
+          <variable>
+            <entry name="$HQFW">
+              <type>
+                <ip-netmask>198.51.100.20/32</ip-netmask>
+              </type>
+            </entry>
+            <entry name="$FirewallISP">
+              <type>
+                <ip-netmask>198.51.100.1/32</ip-netmask>
+              </type>
+            </entry>
+          </variable>
+          <config>
+            <devices>
+              <entry name="localhost.localdomain">
+                <network>
+                  <ike>
+                    <gateway>
+                      <entry name="VPNtoHQ">
+                        <authentication>
+                          <pre-shared-key>
+                            <key>-AQ==AbMHrLpPVPVar8M7sGu79sqAPpo=5Xsy3kFncZ/gYMLGP1hwUg==</key>
+                          </pre-shared-key>
+                        </authentication>
+                        <protocol>
+                          <ikev1>
+                            <dpd>
+                              <enable>yes</enable>
+                            </dpd>
+                          </ikev1>
+                          <ikev2>
+                            <dpd>
+                              <enable>yes</enable>
+                            </dpd>
+                          </ikev2>
+                          <version>ikev2-preferred</version>
+                        </protocol>
+                        <local-address>
+                          <ip>$test</ip>
+                          <interface>ethernet1/1</interface>
+                        </local-address>
+                        <protocol-common>
+                          <nat-traversal>
+                            <enable>no</enable>
+                          </nat-traversal>
+                        </protocol-common>
+                        <peer-address>
+                          <ip>$HQFW</ip>
+                        </peer-address>
+                      </entry>
+                    </gateway>
+                  </ike>
+                </network>
+              </entry>
+            </devices>
+          </config>
+        </entry>
+        <entry name="HQStack">
+          <settings/>
+          <devices>
+            <entry name="4444444"/>
+            <entry name="5555555"/>
+          </devices>
+          <templates>
+            <member>AdminTemplate</member>
+            <member>Management Template</member>
+            <member>Network Template</member>
+          </templates>
+        </entry>
+        <entry name="NAMStack">
+          <settings/>
+          <devices>
+            <entry name="3333333"/>
+          </devices>
+          <templates>
+            <member>AdminTemplate</member>
+            <member>Management Template</member>
+            <member>Network Template</member>
+          </templates>
+        </entry>
+      </template-stack>
+      <template>
+        <entry name="AdminTemplate">
+          <settings>
+            <default-vsys>vsys1</default-vsys>
+          </settings>
+          <config>
+            <devices>
+              <entry name="localhost.localdomain">
+                <vsys>
+                  <entry name="vsys1">
+                    <zone/>
+                    <import>
+                      <network>
+                        <interface>
+                          <member>ethernet1/1</member>
+                        </interface>
+                      </network>
+                    </import>
+                  </entry>
+                </vsys>
+                <network>
+                  <virtual-router>
+                    <entry name="VR1">
+                      <ecmp>
+                        <algorithm>
+                          <ip-modulo/>
+                        </algorithm>
+                      </ecmp>
+                      <protocol>
+                        <bgp>
+                          <routing-options>
+                            <graceful-restart>
+                              <enable>yes</enable>
+                            </graceful-restart>
+                          </routing-options>
+                          <enable>no</enable>
+                        </bgp>
+                        <rip>
+                          <enable>no</enable>
+                        </rip>
+                        <ospf>
+                          <enable>no</enable>
+                        </ospf>
+                        <ospfv3>
+                          <enable>no</enable>
+                        </ospfv3>
+                      </protocol>
+                      <interface>
+                        <member>ethernet1/1</member>
+                      </interface>
+                    </entry>
+                  </virtual-router>
+                  <interface>
+                    <ethernet>
+                      <entry name="ethernet1/1">
+                        <layer3>
+                          <ipv6>
+                            <neighbor-discovery>
+                              <router-advertisement>
+                                <enable>no</enable>
+                              </router-advertisement>
+                            </neighbor-discovery>
+                          </ipv6>
+                          <ndp-proxy>
+                            <enabled>no</enabled>
+                          </ndp-proxy>
+                          <lldp>
+                            <enable>no</enable>
+                          </lldp>
+                        </layer3>
+                      </entry>
+                    </ethernet>
+                  </interface>
+                </network>
+              </entry>
+            </devices>
+          </config>
+          <variable>
+            <entry name="$test">
+              <type>
+                <ip-netmask>1.1.1.1</ip-netmask>
+              </type>
+            </entry>
+          </variable>
+        </entry>
+        <entry name="Network Template">
+          <settings>
+            <default-vsys>vsys1</default-vsys>
+          </settings>
+          <config>
+            <devices>
+              <entry name="localhost.localdomain">
+                <vsys>
+                  <entry name="vsys1">
+                    <zone>
+                      <entry name="ISP">
+                        <network>
+                          <log-setting>default</log-setting>
+                          <layer3>
+                            <member>ethernet1/1</member>
+                          </layer3>
+                        </network>
+                      </entry>
+                      <entry name="LAN">
+                        <network>
+                          <layer3>
+                            <member>ethernet1/2</member>
+                          </layer3>
+                          <log-setting>default</log-setting>
+                        </network>
+                      </entry>
+                      <entry name="HQVPN">
+                        <network>
+                          <layer3>
+                            <member>tunnel.1</member>
+                          </layer3>
+                          <log-setting>default</log-setting>
+                        </network>
+                      </entry>
+                      <entry name="WIFI-employee">
+                        <network>
+                          <log-setting>default</log-setting>
+                          <layer3>
+                            <member>ethernet1/3</member>
+                          </layer3>
+                        </network>
+                      </entry>
+                      <entry name="WIFI-guest">
+                        <network>
+                          <layer3>
+                            <member>ethernet1/4</member>
+                          </layer3>
+                          <log-setting>default</log-setting>
+                        </network>
+                      </entry>
+                    </zone>
+                    <import>
+                      <network>
+                        <interface>
+                          <member>ethernet1/1</member>
+                          <member>ethernet1/2</member>
+                          <member>ethernet1/3</member>
+                          <member>ethernet1/4</member>
+                          <member>tunnel.1</member>
+                        </interface>
+                      </network>
+                    </import>
+                  </entry>
+                </vsys>
+                <network>
+                  <virtual-router>
+                    <entry name="VR1">
+                      <ecmp>
+                        <algorithm>
+                          <ip-modulo/>
+                        </algorithm>
+                      </ecmp>
+                      <protocol>
+                        <bgp>
+                          <routing-options>
+                            <graceful-restart>
+                              <enable>yes</enable>
+                            </graceful-restart>
+                          </routing-options>
+                          <enable>no</enable>
+                        </bgp>
+                        <rip>
+                          <enable>no</enable>
+                        </rip>
+                        <ospf>
+                          <enable>no</enable>
+                        </ospf>
+                        <ospfv3>
+                          <enable>no</enable>
+                        </ospfv3>
+                      </protocol>
+                      <interface>
+                        <member>ethernet1/1</member>
+                        <member>ethernet1/2</member>
+                        <member>ethernet1/3</member>
+                        <member>ethernet1/4</member>
+                        <member>tunnel.1</member>
+                      </interface>
+                    </entry>
+                  </virtual-router>
+                  <interface>
+                    <ethernet>
+                      <entry name="ethernet1/1">
+                        <layer3>
+                          <ipv6>
+                            <neighbor-discovery>
+                              <router-advertisement>
+                                <enable>no</enable>
+                              </router-advertisement>
+                            </neighbor-discovery>
+                          </ipv6>
+                          <ndp-proxy>
+                            <enabled>no</enabled>
+                          </ndp-proxy>
+                          <lldp>
+                            <enable>no</enable>
+                          </lldp>
+                        </layer3>
+                      </entry>
+                      <entry name="ethernet1/2">
+                        <layer3>
+                          <ipv6>
+                            <neighbor-discovery>
+                              <router-advertisement>
+                                <enable>no</enable>
+                              </router-advertisement>
+                            </neighbor-discovery>
+                          </ipv6>
+                          <ndp-proxy>
+                            <enabled>no</enabled>
+                          </ndp-proxy>
+                          <lldp>
+                            <enable>no</enable>
+                          </lldp>
+                          <interface-management-profile>ping-resp</interface-management-profile>
+                        </layer3>
+                      </entry>
+                      <entry name="ethernet1/3">
+                        <layer3>
+                          <ipv6>
+                            <neighbor-discovery>
+                              <router-advertisement>
+                                <enable>no</enable>
+                              </router-advertisement>
+                            </neighbor-discovery>
+                          </ipv6>
+                          <ndp-proxy>
+                            <enabled>no</enabled>
+                          </ndp-proxy>
+                          <lldp>
+                            <enable>no</enable>
+                          </lldp>
+                          <interface-management-profile>ping-resp</interface-management-profile>
+                        </layer3>
+                      </entry>
+                      <entry name="ethernet1/4">
+                        <layer3>
+                          <ipv6>
+                            <neighbor-discovery>
+                              <router-advertisement>
+                                <enable>no</enable>
+                              </router-advertisement>
+                            </neighbor-discovery>
+                          </ipv6>
+                          <ndp-proxy>
+                            <enabled>no</enabled>
+                          </ndp-proxy>
+                          <lldp>
+                            <enable>no</enable>
+                          </lldp>
+                        </layer3>
+                      </entry>
+                    </ethernet>
+                    <tunnel>
+                      <units>
+                        <entry name="tunnel.1"/>
+                      </units>
+                    </tunnel>
+                  </interface>
+                  <profiles>
+                    <interface-management-profile>
+                      <entry name="ping-resp">
+                        <userid-service>yes</userid-service>
+                        <ping>yes</ping>
+                        <response-pages>yes</response-pages>
+                      </entry>
+                    </interface-management-profile>
+                  </profiles>
+                </network>
+              </entry>
+            </devices>
+          </config>
+        </entry>
+        <entry name="Management Template">
+          <settings>
+            <default-vsys>vsys1</default-vsys>
+          </settings>
+          <config>
+            <devices>
+              <entry name="localhost.localdomain">
+                <vsys>
+                  <entry name="vsys1"/>
+                </vsys>
+              </entry>
+            </devices>
+          </config>
+        </entry>
+      </template>
+      <log-collector-group>
+        <entry name="log collectors">
+          <monitoring-setting>
+            <snmp-setting>
+              <access-setting>
+                <version>
+                  <v2c/>
+                </version>
+              </access-setting>
+            </snmp-setting>
+          </monitoring-setting>
+          <logfwd-setting>
+            <collectors>
+              <member>ExampleSerial</member>
+            </collectors>
+          </logfwd-setting>
+        </entry>
+      </log-collector-group>
+    </entry>
+  </devices>
+  <readonly>
+    <devices>
+      <entry name="localhost.localdomain">
+        <device-group>
+          <entry name="HQ firewalls">
+            <id>11</id>
+          </entry>
+          <entry name="Field firewalls">
+            <id>12</id>
+          </entry>
+          <entry name="EMEA">
+            <parent-dg>Field firewalls</parent-dg>
+            <id>13</id>
+          </entry>
+          <entry name="NAM">
+            <parent-dg>Field firewalls</parent-dg>
+            <id>14</id>
+          </entry>
+          <entry name="APAC">
+            <parent-dg>Field firewalls</parent-dg>
+            <id>15</id>
+          </entry>
+        </device-group>
+        <template-stack>
+          <entry name="EMEAStack">
+            <id>16</id>
+          </entry>
+          <entry name="APACStack">
+            <id>17</id>
+          </entry>
+          <entry name="HQStack">
+            <id>18</id>
+          </entry>
+          <entry name="NAMStack">
+            <id>19</id>
+          </entry>
+        </template-stack>
+        <template>
+          <entry name="AdminTemplate">
+            <id>20</id>
+            <config>
+              <devices>
+                <entry name="localhost.localdomain">
+                  <vsys>
+                    <entry name="vsys1">
+                      <zone/>
+                    </entry>
+                  </vsys>
+                </entry>
+              </devices>
+            </config>
+          </entry>
+          <entry name="Network Template">
+            <id>22</id>
+            <config>
+              <devices>
+                <entry name="localhost.localdomain">
+                  <vsys>
+                    <entry name="vsys1">
+                      <zone>
+                        <entry name="ISP">
+                          <id>24</id>
+                        </entry>
+                        <entry name="LAN">
+                          <id>25</id>
+                        </entry>
+                        <entry name="HQVPN">
+                          <id>26</id>
+                        </entry>
+                        <entry name="WIFI-employee">
+                          <id>27</id>
+                        </entry>
+                        <entry name="WIFI-guest">
+                          <id>28</id>
+                        </entry>
+                      </zone>
+                    </entry>
+                  </vsys>
+                </entry>
+              </devices>
+            </config>
+          </entry>
+          <entry name="Management Template">
+            <id>23</id>
+          </entry>
+        </template>
+      </entry>
+    </devices>
+    <max-internal-id>28</max-internal-id>
+  </readonly>
+</config>
