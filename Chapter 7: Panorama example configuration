@@ -57,7 +57,7 @@
     <pre-rulebase>
       <security>
         <rules>
-          <entry name="block sinkhole" uuid="dacdfd6c-ed49-4384-b8c1-29aadb044201">
+          <entry name="block sinkhole">
             <profile-setting>
               <group>
                 <member>default</member>
@@ -96,7 +96,7 @@
             <action>drop</action>
             <log-setting>default</log-setting>
           </entry>
-          <entry name="shared pre - admin access" uuid="dde1aa9e-e46f-42bc-bc40-ba82d83b9a34">
+          <entry name="shared pre - admin access">
             <profile-setting>
               <group>
                 <member>default</member>
@@ -265,7 +265,7 @@
     <entry name="localhost.localdomain">
       <deviceconfig>
         <system>
-          <ip-address>10.0.0150</ip-address>
+          <ip-address>10.0.0.150</ip-address>
           <netmask>255.255.255.0</netmask>
           <update-server>updates.paloaltonetworks.com</update-server>
           <update-schedule>
@@ -301,7 +301,7 @@
             <disable-userid-service>no</disable-userid-service>
           </service>
           <hostname>Panorama</hostname>
-          <default-gateway>10.0.0254</default-gateway>
+          <default-gateway>10.0.0.254</default-gateway>
           <dns-setting>
             <servers>
               <primary>1.1.1.1</primary>
@@ -451,7 +451,7 @@
           <pre-rulebase>
             <security>
               <rules>
-                <entry name="field pre- monitoring" uuid="a6667d8a-138a-4772-b0fe-835235805725">
+                <entry name="field pre- monitoring">
                   <profile-setting>
                     <group>
                       <member>default</member>
@@ -513,7 +513,7 @@
           <pre-rulebase>
             <security>
               <rules>
-                <entry name="EMEA pre - regional cloud apps" uuid="ed04da9b-7757-443e-bec0-fbeb2de96d85">
+                <entry name="EMEA pre - regional cloud apps">
                   <profile-setting>
                     <group>
                       <member>default</member>
