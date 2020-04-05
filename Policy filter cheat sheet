@@ -1,0 +1,40 @@
+##    searched terms are case sensitive! (Untrust or untrust)
+##    operands include 'eq', 'neq' , 'contains'
+
+Tags: (tag/member eq 'tagname')
+Name: (name contains 'unlocate-block')
+Type: (rule-type eq 'intrazone|interzone')
+Source Zone: (from/member eq 'zonename')
+Source Address: (source/member eq 'any|ip|object')
+Source User: (source-user/member eq 'any|username|groupname')
+Hip profile:  (hip-profiles/member eq 'any|profilename')
+Destination Zone: (to/member eq 'zonename')
+Destination Address: (destination/member eq 'any|ip|object')
+Destination User: (destination-user/member eq 'any|username|groupname')
+Application: (application/member eq 'any|applicationname|applicationgroup|applicationfilter')
+Service: (service/member eq 'any|servicename|application-default')
+URL Category: (category/member eq 'any|categoryname') 
+##          This is a destination category, not a URL filtering security profile
+
+Action: (action eq 'allow|drop|deny|reset-client|reset-server|reset-both')
+Action send ICMP unreachable: (icmp-unreachable eq 'yes')
+Security Profiles:
+      (profile-setting/profiles/virus/member eq 'profilename')
+      (profile-setting/profiles/spyware/member eq 'profilename')
+      (profile-setting/profiles/vulnerability/member eq 'profilename')
+      (profile-setting/profiles/url-filtering/member eq 'profilename')
+      (profile-setting/profiles/file-blocking/member eq 'profilename')
+      (profile-setting/profiles/wildfire-analysis/member eq 'profilegroupname')
+      (profile-setting/group/member eq 'profilename')
+Disable server response inspection: (option/disable-server-response-inspection eq 'yes')
+Log at session start: (log-start eq 'yes|no')
+Log at session end: (log-end eq 'yes|no')
+Schedule: (schedule eq 'schedulename')
+Log Forwarding:  (log-setting eq "forwardingprofilename')
+Qos Marking:    (qos/marking/ip-dscp eq 'codepoint')
+                            (qos/marking/ip-precedence eq 'codepoint')
+                            (qos/marking/follow-c2s-flow eq '')
+Description: (description contains '<keyword>')
+Disabled policy: (disabled eq yes|no)  
+##           policies will only respond to 'no' if they have been disabled before
+
