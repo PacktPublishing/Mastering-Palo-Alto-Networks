@@ -1,0 +1,38 @@
+###preparation###
+debug dataplane packet-diag clear all
+debug dataplane packet-diag clear filter-marked-session all
+debug dataplane packet-diag set filter match source 10.0.0.1 destination 198.51.100.2
+debug dataplane packet-diag set filter match source 10.0.0.1 destination 198.51.100.1
+debug dataplane packet-diag set filter match source 198.51.100.1 destination 198.51.100.2
+debug dataplane packet-diag set filter match destination 198.51.100.2
+debug dataplane packet-diag set filter on
+###optionally enable packet capture###
+#debug dataplane packet-diag set capture stage receive file rx.pcap
+#debug dataplane packet-diag set capture stage transmit file tx.pcap
+#debug dataplane packet-diag set capture stage firewall file fw.pcap
+#debug dataplane packet-diag set capture stage drop file drp.pcap
+
+###prelaunch###
+show session all filter source 10.0.0.10
+set session offload no
+debug dataplane packet-diag set log feature flow basic
+debug dataplane packet-diag set log on
+#debug dataplane packet-diag set capture on
+
+###launch###
+show counter global filter delta yes packet-filter yes
+show session all filter source 10.0.0.10
+show counter global filter delta yes packet-filter yes
+show session all filter source 10.0.0.10
+show session all filter source 10.0.0.10
+show session id 270
+show session all filter source 10.0.0.10
+show session all filter source 10.0.0.10
+show counter global filter delta yes packet-filter yes
+
+###end###
+debug dataplane packet-diag set log off
+#debug dataplane packet-diag set capture off
+debug dataplane packet-diag aggregate-logs
+set session offload yes
+less mp-log pan_packet_diag.log 
