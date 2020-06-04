@@ -84,8 +84,11 @@ flow_policy_nat_land                       4        0 drop      flow      sessio
 nat_dynamic_port_xlat                      4        0 info      nat       resource  The total number of dynamic_ip_port NAT translate called
 nat_dynamic_port_release                   8        0 info      nat       resource  The total number of dynamic_ip_port NAT release called
 log_pkt_diag_us                          262       19 info      log       system    Time (us) spent on writing packet-diag logs
+session_freed                              1        0 info      session   resource  Sessions freed
+flow_policy_nat_land                       1        0 drop      flow      session   Session setup: source NAT IP allocation result in LAND attack
+ctd_fwd_err_tcp_state                      1        0 info      ctd       pktproc   Forward to varrcvr error: TCP in establishment when session went away
 --------------------------------------------------------------------------------
-Total counters shown: 6
+Total counters shown: 9
 --------------------------------------------------------------------------------
 
 reaper@PA-VM> show session all filter source 10.0.0.10
@@ -165,8 +168,6 @@ name                                   value     rate severity  category  aspect
 pkt_recv                                   5        0 info      packet    pktproc   Packets received
 pkt_sent                                  20        0 info      packet    pktproc   Packets transmitted
 session_allocated                          1        0 info      session   resource  Sessions allocated
-session_freed                              1        0 info      session   resource  Sessions freed
-flow_policy_nat_land                       1        0 drop      flow      session   Session setup: source NAT IP allocation result in LAND attack
 flow_ip_cksm_sw_validation                27        0 info      flow      pktproc   Packets for which IP checksum validation was done in software
 nat_dynamic_port_xlat                      1        0 info      nat       resource  The total number of dynamic_ip_port NAT translate called
 nat_dynamic_port_release                   2        0 info      nat       resource  The total number of dynamic_ip_port NAT release called
@@ -174,12 +175,11 @@ dfa_sw                                     4        0 info      dfa       pktpro
 ctd_sml_exit_detector_i                    1        0 info      ctd       pktproc   The number of sessions with sml exit in detector i 
 ctd_run_detector_i                         1        0 info      ctd       pktproc   run detector_i
 ctd_sml_vm_run_impl_opcodeexit             1        0 info      ctd       pktproc   SML VM opcode exit
-ctd_fwd_err_tcp_state                      1        0 info      ctd       pktproc   Forward to varrcvr error: TCP in establishment when session went away
 ctd_pscan_sw                               4        0 info      ctd       pktproc   The total usage of software for pscan
 ctd_pkt_slowpath                           4        0 info      ctd       pktproc   Packets processed by slowpath
 log_pkt_diag_us                          303        5 info      log       system    Time (us) spent on writing packet-diag logs
 --------------------------------------------------------------------------------
-Total counters shown: 16
+Total counters shown: 13
 --------------------------------------------------------------------------------
 
 reaper@PA-VM> show session all filter source 10.0.0.10
