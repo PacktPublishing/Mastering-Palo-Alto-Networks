@@ -1,8 +1,8 @@
 ###preparation###
 debug dataplane packet-diag clear all
 debug dataplane packet-diag clear filter-marked-session all
-debug dataplane packet-diag set filter match source 10.0.0.1 destination 198.51.100.2
-debug dataplane packet-diag set filter match source 10.0.0.1 destination 198.51.100.1
+debug dataplane packet-diag set filter match source 10.0.0.10 destination 198.51.100.2
+debug dataplane packet-diag set filter match source 10.0.0.10 destination 198.51.100.1
 debug dataplane packet-diag set filter match source 198.51.100.1 destination 198.51.100.2
 debug dataplane packet-diag set filter match destination 198.51.100.2
 debug dataplane packet-diag set filter on
