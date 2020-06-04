@@ -21,6 +21,8 @@ debug dataplane packet-diag set log on
 
 ###launch###
 show counter global filter delta yes packet-filter yes
+show clock
+show counter global filter delta yes packet-filter yes
 show session all filter source 10.0.0.10
 show counter global filter delta yes packet-filter yes
 show session all filter source 10.0.0.10
@@ -29,6 +31,7 @@ show session id 270
 show session all filter source 10.0.0.10
 show session all filter source 10.0.0.10
 show counter global filter delta yes packet-filter yes
+show clock
 
 ###end###
 debug dataplane packet-diag set log off
