@@ -4,9 +4,9 @@ Packet diagnosis setting set to default.
 reaper@PA-VM> debug dataplane packet-diag clear filter-marked-session all
 
 Unmark All sessions in packet debug
-reaper@PA-VM> debug dataplane packet-diag set filter match source 10.0.0.1 destination 198.51.100.2
+reaper@PA-VM> debug dataplane packet-diag set filter match source 10.0.0.10 destination 198.51.100.2
 
-reaper@PA-VM> debug dataplane packet-diag set filter match source 10.0.0.1 destination 198.51.100.1
+reaper@PA-VM> debug dataplane packet-diag set filter match source 10.0.0.10 destination 198.51.100.1
 
 reaper@PA-VM> debug dataplane packet-diag set filter match source 198.51.100.1 destination 198.51.100.2
 
