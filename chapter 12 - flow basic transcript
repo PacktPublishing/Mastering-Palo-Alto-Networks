@@ -1,0 +1,223 @@
+reaper@PA-VM> debug dataplane packet-diag clear all
+
+Packet diagnosis setting set to default.
+reaper@PA-VM> debug dataplane packet-diag clear filter-marked-session all
+
+Unmark All sessions in packet debug
+reaper@PA-VM> debug dataplane packet-diag set filter match source 10.0.0.10 destination 198.51.100.2
+
+reaper@PA-VM> debug dataplane packet-diag set filter match source 10.0.0.10 destination 198.51.100.1
+
+reaper@PA-VM> debug dataplane packet-diag set filter match source 198.51.100.1 destination 198.51.100.2
+
+reaper@PA-VM> debug dataplane packet-diag set filter match destination 198.51.100.2
+
+reaper@PA-VM> debug dataplane packet-diag set filter on
+
+debug packet filter: on
+reaper@PA-VM> show session all filter source 10.0.0.10
+
+No Active Sessions
+reaper@PA-VM> set session offload no
+
+reaper@PA-VM> debug dataplane packet-diag set log feature flow basic
+
+reaper@PA-VM> debug dataplane packet-diag set log on
+
+Packet log is enabled
+reaper@PA-VM> show counter global filter delta yes packet-filter yes
+
+Global counters:
+Elapsed time since last sampling: 159.191 seconds
+
+name                                   value     rate severity  category  aspect    description
+--------------------------------------------------------------------------------
+pkt_recv                                   2        0 info      packet    pktproc   Packets received
+pkt_sent                                  14        0 info      packet    pktproc   Packets transmitted
+pkt_stp_rcv                                2        0 info      packet    pktproc   STP BPDU packets received
+flow_arp_pkt_rcv                           2        0 info      flow      arp       ARP packets received
+flow_arp_rcv_gratuitous                    2        0 info      flow      arp       Gratuitous ARP packets received
+flow_ip_cksm_sw_validation                 9        0 info      flow      pktproc   Packets for which IP checksum validation was done in software
+log_pkt_diag_us                           82        0 info      log       system    Time (us) spent on writing packet-diag logs
+--------------------------------------------------------------------------------
+Total counters shown: 7
+--------------------------------------------------------------------------------
+
+reaper@PA-VM> show counter global filter delta yes packet-filter yes
+
+Global counters:
+Elapsed time since last sampling: 5.588 seconds
+
+--------------------------------------------------------------------------------
+Total counters shown: 0
+--------------------------------------------------------------------------------
+
+reaper@PA-VM> show se
+> service-chain   Show service chain information
+> session         Show session information
+
+reaper@PA-VM> show session all filter source 10.0.0.10
+
+No Active Sessions
+reaper@PA-VM> show counter global filter delta yes packet-filter yes
+
+Global counters:
+Elapsed time since last sampling: 24.931 seconds
+
+--------------------------------------------------------------------------------
+Total counters shown: 0
+--------------------------------------------------------------------------------
+
+reaper@PA-VM> show session all filter source 10.0.0.10
+
+No Active Sessions
+reaper@PA-VM> show counter global filter delta yes packet-filter yes
+
+Global counters:
+Elapsed time since last sampling: 13.132 seconds
+
+name                                   value     rate severity  category  aspect    description
+--------------------------------------------------------------------------------
+session_allocated                          4        0 info      session   resource  Sessions allocated
+session_freed                              4        0 info      session   resource  Sessions freed
+flow_policy_nat_land                       4        0 drop      flow      session   Session setup: source NAT IP allocation result in LAND attack
+nat_dynamic_port_xlat                      4        0 info      nat       resource  The total number of dynamic_ip_port NAT translate called
+nat_dynamic_port_release                   8        0 info      nat       resource  The total number of dynamic_ip_port NAT release called
+log_pkt_diag_us                          262       19 info      log       system    Time (us) spent on writing packet-diag logs
+session_freed                              1        0 info      session   resource  Sessions freed
+flow_policy_nat_land                       1        0 drop      flow      session   Session setup: source NAT IP allocation result in LAND attack
+ctd_fwd_err_tcp_state                      1        0 info      ctd       pktproc   Forward to varrcvr error: TCP in establishment when session went away
+--------------------------------------------------------------------------------
+Total counters shown: 9
+--------------------------------------------------------------------------------
+
+reaper@PA-VM> show session all filter source 10.0.0.10
+
+No Active Sessions
+reaper@PA-VM> show session all filter source 10.0.0.10
+
+--------------------------------------------------------------------------------
+ID          Application    State   Type Flag  Src[Sport]/Zone/Proto (translated IP[Port])
+Vsys                                          Dst[Dport]/Zone (translated IP[Port])
+--------------------------------------------------------------------------------
+270          ssh            ACTIVE  FLOW  NS   10.0.0.10[49402]/trust/6  (198.51.100.2[12607])
+vsys1                                          198.51.100.1[22]/untrust  (198.51.100.1[22])
+reaper@PA-VM> show se
+> service-chain   Show service chain information
+> session         Show session information
+
+reaper@PA-VM> show session id 270
+
+Session             270
+
+        c2s flow:
+                source:      10.0.0.10 [trust]
+                dst:         198.51.100.1
+                proto:       6
+                sport:       49402           dport:      22
+                state:       ACTIVE          type:       FLOW
+                src user:    unknown
+                dst user:    unknown
+
+        s2c flow:
+                source:      198.51.100.1 [untrust]
+                dst:         198.51.100.2
+                proto:       6
+                sport:       22              dport:      12607
+                state:       ACTIVE          type:       FLOW
+                src user:    unknown
+                dst user:    unknown
+
+        start time                           : Thu Jun  4 00:46:11 2020
+        timeout                              : 3600 sec
+        time to live                         : 3589 sec 
+        total byte count(c2s)                : 3961
+        total byte count(s2c)                : 6143
+        layer7 packet count(c2s)             : 22
+        layer7 packet count(s2c)             : 27
+        vsys                                 : vsys1
+        application                          : ssh  
+        rule                                 : outbound
+        service timeout override(index)      : False
+        session to be logged at end          : True
+        session in session ager              : True
+        session updated by HA peer           : False
+        address/port translation             : source
+        nat-rule                             : outbound hide(vsys1)
+        layer7 processing                    : completed
+        URL filtering enabled                : True
+        URL category                         : any
+        session via syn-cookies              : False
+        session terminated on host           : False
+        session traverses tunnel             : False
+        session terminate tunnel             : False
+        captive portal session               : False
+        ingress interface                    : ethernet1/2
+        egress interface                     : ethernet1/1
+        session QoS rule                     : N/A (class 4)
+        tracker stage l7proc                 : ctd decoder done
+        end-reason                           : unknown
+reaper@PA-VM> 
+reaper@PA-VM> show counter global filter delta yes packet-filter yes
+
+Global counters:
+Elapsed time since last sampling: 55.235 seconds
+
+name                                   value     rate severity  category  aspect    description
+--------------------------------------------------------------------------------
+pkt_recv                                   5        0 info      packet    pktproc   Packets received
+pkt_sent                                  20        0 info      packet    pktproc   Packets transmitted
+session_allocated                          1        0 info      session   resource  Sessions allocated
+flow_ip_cksm_sw_validation                27        0 info      flow      pktproc   Packets for which IP checksum validation was done in software
+nat_dynamic_port_xlat                      1        0 info      nat       resource  The total number of dynamic_ip_port NAT translate called
+nat_dynamic_port_release                   2        0 info      nat       resource  The total number of dynamic_ip_port NAT release called
+dfa_sw                                     4        0 info      dfa       pktproc   The total number of dfa match using software
+ctd_sml_exit_detector_i                    1        0 info      ctd       pktproc   The number of sessions with sml exit in detector i 
+ctd_run_detector_i                         1        0 info      ctd       pktproc   run detector_i
+ctd_sml_vm_run_impl_opcodeexit             1        0 info      ctd       pktproc   SML VM opcode exit
+ctd_pscan_sw                               4        0 info      ctd       pktproc   The total usage of software for pscan
+ctd_pkt_slowpath                           4        0 info      ctd       pktproc   Packets processed by slowpath
+log_pkt_diag_us                          303        5 info      log       system    Time (us) spent on writing packet-diag logs
+--------------------------------------------------------------------------------
+Total counters shown: 13
+--------------------------------------------------------------------------------
+
+reaper@PA-VM> show session all filter source 10.0.0.10
+
+--------------------------------------------------------------------------------
+ID          Application    State   Type Flag  Src[Sport]/Zone/Proto (translated IP[Port])
+Vsys                                          Dst[Dport]/Zone (translated IP[Port])
+--------------------------------------------------------------------------------
+270          ssh            ACTIVE  FLOW  NS   10.0.0.10[49402]/trust/6  (198.51.100.2[12607])
+vsys1                                          198.51.100.1[22]/untrust  (198.51.100.1[22])
+reaper@PA-VM> show session all filter source 10.0.0.10
+
+No Active Sessions
+reaper@PA-VM> show counter global filter delta yes packet-filter yes
+
+Global counters:
+Elapsed time since last sampling: 54.857 seconds
+
+name                                   value     rate severity  category  aspect    description
+--------------------------------------------------------------------------------
+pkt_recv                                   3        0 info      packet    pktproc   Packets received
+pkt_sent                                  14        0 info      packet    pktproc   Packets transmitted
+flow_ip_cksm_sw_validation                 9        0 info      flow      pktproc   Packets for which IP checksum validation was done in software
+log_pkt_diag_us                          100        1 info      log       system    Time (us) spent on writing packet-diag logs
+--------------------------------------------------------------------------------
+Total counters shown: 4
+--------------------------------------------------------------------------------
+
+reaper@PA-VM> debug dataplane packet-diag set log off
+
+Packet log is disabled
+reaper@PA-VM> debug dataplane packet-diag aggregate-logs 
+
+
+
+pan_packet_diag.log is aggregated
+
+
+reaper@PA-VM> set session offload yes
+
+reaper@PA-VM> less mp-log pan_packet_diag.log
