@@ -1,0 +1,142 @@
+command							function
+find command keyword <keyword>				lets you find any command as long as you know what you're looking for
+| match <value>						filter the output of a command and only return the line that has a positive match
+| except <value>						filter the output of a command and return everything except the lines that match the value
+tcpdump snaplen 0 filter "not port 22"			captures all sessions on the management interface except sessions on port 22
+view-pcap debug-pcap|filter-pcap|mgmt-pcap no-dns-lookup	shows packetcaptures taken on daemons, via packet-diag or tcpdump
+show admins							shows currently logged in admins
+delete admin-sessions username <user>				terminates an admins session
+set system setting target-vsys <vsys>				change operational commends to a vsys perspective
+show authentication allowlist					shows the allowlist for all authentication profiles
+show system environmentals					shows system core temperatures and power levels
+	
+Basic system information	
+show system info						returns basic device information like serial, IP, installed content and software versions
+show system software status					shows if all processes are running properly
+show system logdb-quota					returns the log db usage
+show system disk-space					returns disk volume information
+show jobs all/id						returns status of all commit, download, install and qfdn jobs, and additional details on specific IDs
+show system files						shows if any core dump files have been created due to a process crash
+request license fetch/info					retrieves and shows currently active licenses
+show netstat all yes						shows all listening and established connections on the management plane, per process
+show chassis-ready						shows if the dataplane is ready to process sessions
+show panorama-status						verify connectivity with panorama
+	
+High Availability	
+show high-availability state					shows a quick rundown of the local peer's HA condition
+show high-availability  all					summary of all HA runtime
+show high-availability state-synchronization			displays statistics about sent and received sync messages
+request high-availability sessions-reestablish force		reestablishes HA1 link if link was lost, use 'force' if HA1 backup is not configured
+show high-availability session-reestablish-status		shows when HA1 and HA1-backup links were last reestablished
+request high-availability sync-to-remote running-config	manually syncs running configuration to peer, in case automatic sync failed or if status is out-of-sync
+request high-availability state functional|suspend		suspend or activate local device
+request high-availability state peer functional|suspend	suspend or activate peer device
+show high-availability transitions				indicates how many times a device has transitioned between HA states
+show high-availability flap statistics			details about preemptions 'flaps' (preemption activates device, error encountered again, device non-funct, recovers, preempt activates, error encountered again, …)
+show high-availability control-link statistics		detailed information about HA1 messages
+	
+performance information	
+show system resources						shows management plane resource usage like 'top' in linux
+show running resource-monitor					shows dataplane CPU core utilization and buffer usage
+debug dataplane pool statistics				shows software buffer pool usage
+show session info						shows number of active sessions, packets per second, thoughput and other session related paramerters
+debug log-receiver statistics					information on log volume per second and any errors while writing or forwarding log
+show system statistics application|session			shows live statistics about top applications, or system throughput
+show report jobs						indicate if reports are currently being generated (this could have an impact on management plane CPU usage)
+	
+dns operations	
+show system setting ssl-decrypt dns-cache 			shows ssl decryption dns cache
+show dns-proxy cache all 					shows the dns proxy cache
+show system setting ssl-decrypt memory 			shows ssl decryption memory usage
+show dns-proxy fqdn all					show all FQDN objects with their resolved IP addresses
+request system fqdn refresh					refresh all FQDN objects
+debug dataplane internal vif link 				returns statistics on the internal hardwre interfaces. 
+	
+packet flow	
+show counter global filter delta yes				shows global counters
+show session all filter <filters>				shows active, discard and predict sessions matching the filer (or 'all' sessions)
+set session offload yes|no					enables and disables session offloading to hardware
+set session  tcp-reject-non-syn yes|no			disable dropping TCP ACK packets coming in without a proper handshake
+# set deviceconfig setting tcp asymmetric-path bypass|drop	disable dropping packets that arrive out of window or out of sync
+	
+Layer 2 and 3	
+show routing route						output the routing table (Routing Informtion Base, or rib)
+show routing fib						shows the forwarding table (Forwarding Information Base)
+show arp all							shows the content of the ARP table (layer 3)
+show mac all							shows the content of the MAC table (layer 2)
+show routing protocol ospf|bgp|rip summary 			returns a summary of the ospf, bgp or rip status
+show routing resource						verify the number of routes is not reaching the system limits
+debug routing pcap ospf|bgp|rip on|off			enables/disables packetcaptures on the routing engine for the routing protocol. Use for troubleshooting only
+	
+policies	
+show running nat-policy					show all active NAT rules
+show running nat-rule-ippool rule <rulename>			show memory usage, over subscription ratio and allocations per rule
+show running global-ippool					show runtime statistics for  global dynamic source nat
+show running ippool						show overall source nat statistics
+show session all filter qos-class [1-8]			displays all sessions that match a specific QoS class
+show qos interface <interface> counter			shows general counter on QoS configured on an interface
+show qos interface <interface> throughput <Qid as seen in counters>returns actual throughput for a Qid on an interface
+show zone-protection zone <zone>				show zone protection statistics for the zone
+show dos-protection rule <rulename> statistics		show statistics for a dos-protection rule
+show dos-protection zone <zone> blocked source		show swhich IP addresses are currently being blocked due to DoS protection
+	
+URL filtering	
+test url-info-cloud <url> 					show the category for a URL via cloud lookup
+test url-info-host <url>					show the category for a URL in the Management plane cache
+show running url						show the category for a URL in the dataplane cache
+request url-iltering update url <url>				refreshes the management plane cache entry for a url with a cloud lookup
+show running url-cache all					outputs the URL cache to mp-log dp_url_DB.log
+show running url-cache statistics				shows memory usage of the URL cache
+show url-cloud status						returns connectivity information for URL lookup cloud connection
+clear url-cache all|url <url>					clears a single url from cache, or the entire cache from dataplane
+delete url-database all|url					clears a single url from cache, or the entire cache from management plane
+
+Panorama	
+show logging-status device <serial>				returns log forwarding information for a device logging to panorama
+debug log-collector log-collection-stats show incoming-logs 	shows incoming log statistics including current log rate
+show system raid detail 					shows information of RAID array on M- appliance
+show system disk details 					shows information of disk status on VM- appliance
+	
+IPSec	
+show running tunnel flow info 				shows basic statistics about all vpn tunnels
+test vpn ike-sa gateway <gateway>				initiates an IKE negotiation with the designated gateway
+test vpn ipsec-sa tunnel <tunnel>				initiates an ipsec negotiation for the designated tunnel
+clear vpn ike-sa gateway <gateway>				clears the IKE SA for a given gateway
+clear vpn ipsec-sa tunnel <tunnel>				clears the IPSec SA for a given tunnel
+show vpn ike-sa gateway <gateway>				shows the IKE SA for a given gateway
+show vpn ipsec-sa tunnel <tunnel>				shows the IPSec SA for a given tunnel
+show global-protect-gateway current-satellite			show currently connected satellites to GlobalProtect
+show global-protect-gateway current-user			show currently connected users to GlobalProtect
+	
+User-ID	
+show user ip-user-mapping all|ip				show all mapped users or the mapped user(s) for a specific IP on the dataplane
+show user ip-user-mapping-mp all|ip				show all mapped users or the mapped user(s) for a specific IP on the management plane
+debug user-id refresh group-mapping all			refresh group-mapping memberships
+show user group list						show all groups used in group-mapping
+show user group name <group>					shows all members of a group
+show user group-mapping state all				show the state of all group mapping profiles
+show user group-mapping statistics				show last/next refresh of group mapping
+show user user-id-agent statistics | state all		show user-ID agent state and statistics
+show user ts-agent statistics |state all			show terminal server agent state and statistics
+show user server-monitor statistics|state all 		shows the state of the agentless User-ID agent
+show user ip-port-user-mapping all				show user to port mapping for terminal server agents or a specific server IP
+	
+WildFire	
+show wildfire status						show connection status to wildfire cloud
+show sildfire statistics					show file transfer statistics
+test wildfire registration 					test connectivity to wildfire cloud
+	
+services	
+show dhcp server lease all					show all dhcp leases
+clear dhcp lease interface <interface> ip|mac|expiredonly <value>clears a lease for an IP or MAC address, or all the expired ones
+debug dhcpd pcap on|off					enables packetcapture of dhcp transactions on the daemon
+show dhcp client state <interface>				show dhcp information for an interface that is DHCP client
+request dhcp client release|renew <interface>			release or renew dhcp client lease for a dhcp client interface
+	
+super command	
+show system state						this command returns the stte of the entire device
+show system state filter env.*				show system core temperatures and power levels
+show system state | match fan					search the system state for any line containing 'fan' to find fan speeds
+show system state | match cfg.general.max			returns the maximum number of configurable objects the system  supports
+	
+	
