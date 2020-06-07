@@ -9,6 +9,7 @@ delete admin-sessions username <user>				terminates an admins session
 set system setting target-vsys <vsys>				change operational commends to a vsys perspective
 show authentication allowlist					shows the allowlist for all authentication profiles
 show system environmentals					shows system core temperatures and power levels
+scp|tftp export <thing> to user@destination:/path/		many things can be exported from the system, including log files, packet captures or core files
 	
 Basic system information	
 show system info						returns basic device information like serial, IP, installed content and software versions
@@ -97,6 +98,9 @@ debug log-collector log-collection-stats show incoming-logs 	shows incoming log
 show system raid detail 					shows information of RAID array on M- appliance
 show system disk details 					shows information of disk status on VM- appliance
 replace old <serial> new <serial				replaces a managed device's serial with a new one after an RMA. This lods all the configuration previously associated with one device with a new one without needing to go in and assign configuration to the new serial (it removes the old serial)
+request log-fwd-ctrl action latest|start-from-lastack device <serial>	start log forwrding from device from the last log|last acked log	
+request log-fwd-ctrl start|stop latest device <serial>		start or stop log forwarding from a device to panorama wit buffering
+request log-fwd-ctrl action live device <serial>		start log forwarding without buffering (this could cause a large flood of inbound logs)
 
 IPSec	
 show running tunnel flow info 					shows basic statistics about all vpn tunnels
@@ -139,5 +143,5 @@ show system state						this command returns the stte of the entire device
 show system state filter env.*					show system core temperatures and power levels
 show system state | match fan					search the system state for any line containing 'fan' to find fan speeds
 show system state | match cfg.general.max			returns the maximum number of configurable objects the system  supports
-	
+show system state filter-pretty sys.s1.*			show information about all the interfaces in slot 1 	
 	
