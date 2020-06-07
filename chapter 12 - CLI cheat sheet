@@ -96,7 +96,8 @@ show logging-status device <serial>				returns log forwarding information for a 
 debug log-collector log-collection-stats show incoming-logs 	shows incoming log statistics including current log rate
 show system raid detail 					shows information of RAID array on M- appliance
 show system disk details 					shows information of disk status on VM- appliance
-	
+replace old <serial> new <serial				replaces a managed device's serial with a new one after an RMA. This lods all the configuration previously associated with one device with a new one without needing to go in and assign configuration to the new serial (it removes the old serial)
+
 IPSec	
 show running tunnel flow info 					shows basic statistics about all vpn tunnels
 test vpn ike-sa gateway <gateway>				initiates an IKE negotiation with the designated gateway
