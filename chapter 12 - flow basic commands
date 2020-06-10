@@ -37,7 +37,13 @@ show clock
 
 ###end###
 debug dataplane packet-diag set log off
-#debug dataplane packet-diag set capture off
-debug dataplane packet-diag aggregate-logs
+debug dataplane packet-diag set capture off
 set session offload yes
+
+###reading and collecting the output###
+debug dataplane packet-diag aggregate-logs
 less mp-log pan_packet_diag.log 
+scp export log-file management-plane to user@host:/path/
+view-pcap filter-pcap rx.pcap 
+scp export filter-pcap from *.pcap to user@host:/path
+
