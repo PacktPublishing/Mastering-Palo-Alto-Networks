@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <base href="/login/">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=.85">
+    <meta http-equiv="pragma" content="no-cache">
+    <title>Your Device has been Quarantined</title>
+    <link rel="stylesheet" href="css/latofonts.css">
+    <style>
+        body {
+            background-color: #d00000;
+            font-family: Lato, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 16px;
+            margin: 0;
+            color: #070808;
+        }
+
+        a:link {
+            color: #0993d1;
+        }
+
+        b,
+        strong {
+            font-weight: 500;
+        }
+
+        p {
+            line-height: 1.2em;
+        }
+
+        button {
+            overflow: visible;
+        }
+
+        button, input, optgroup, select, textarea {
+            color: inherit;
+            font: inherit;
+            margin: 0;
+        }
+
+        .center {
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #dError,
+        .msg {
+            color: #d94949;
+            margin: 20px 0;
+        }
+
+        fieldset .msg {
+            margin: 0;
+        }
+
+        #content {
+            padding-top: 100px;
+        }
+
+        #content img {
+            display: block;
+            margin: auto;
+        }
+
+        #content h1 {
+            font-style: normal;
+            font-weight: normal;
+            font-size: 36px;
+            line-height: 43px;
+            text-align: center;
+            letter-spacing: 0.1px;
+            color: #070808;
+            margin: 10px auto 8px;
+        }
+
+        #content > p {
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            width: 640px;
+            font-size: 14px;
+            line-height: 20px;
+        }
+
+        .response {
+            background-color: #fff;
+            color: #5a636b;
+            margin: 24px auto 0;
+            padding: 20px;
+            font-size: 16px;
+            width: 800px;
+            border: 1px solid #c8cbce;
+            box-sizing: border-box;
+            border-radius: 8px;
+        }
+
+        .response p {
+            margin: 0 0 1em;
+        }
+
+        .response p:last-child {
+            margin: 0;
+        }
+
+        .response b {
+            color: #070808;
+        }
+
+        .response .msg b {
+            color: #d94949;
+        }
+
+        .response form td,
+        .response form input {
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+
+        .loading {
+            margin: 2em auto 1em;
+        }
+    </style>
+    <script>
+        function pwdCheck() {
+            if (document.getElementById("pwd")) {
+                document.getElementById("continueText").innerHTML = "If you require access to this page, have an administrator enter the override password here:";
+            }
+        }
+    </script>
+</head>
+
+<body>
+<div id="content" class="container">
+    <h1>Your Device has been Quarantined</h1>
+    <p>The web page you are trying to visit has been blocked because your device has been placed in quarantine. Please contact your system administrator to seek remediation immediately.</p>
+    <div class="response">
+        <p><b>User:</b> <user/></p>
+
+        <hr>
+        <span id="continueText"></span>
+        <div id="formdiv">
+            <pan_form/>
+        </div>
+    </div>
+</div>
+</body>
+</html>
