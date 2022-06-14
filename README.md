@@ -1,7 +1,3 @@
-## [Get this title for $10 on Packt's Spring Sale](https://www.packt.com/B13292?utm_source=github&utm_medium=packt-github-repo&utm_campaign=spring_10_dollar_2022)
------
-For a limited period, all eBooks and Videos are only $10. All the practical content you need \- by developers, for developers
-
 # Mastering Palo Alto Networks
 
 <a href="https://www.packtpub.com/cloud-networking/mastering-palo-alto-networks?utm_source=github&utm_medium=repository&utm_campaign=9781789956375"><img src="https://www.packtpub.com/media/catalog/product/cache/4cdce5a811acc0d2926d7f857dceb83b/9/7/9781789956375-original_47.png" alt="Mastering Palo Alto Networks" height="256px" align="right"></a>
